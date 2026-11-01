@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: '台本一覧',
+    robots: { index: false },
 }
 
 export default async function ProtectedPage() {

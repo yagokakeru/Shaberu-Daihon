@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: 'マイページ',
+    robots: { index: false },
 }
 
 export default async function Mypage() {

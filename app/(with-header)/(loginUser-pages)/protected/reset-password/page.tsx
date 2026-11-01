@@ -2,7 +2,8 @@ import ResetPasswordForm from '@/components/app/loginUser-pages/reset-password'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'パスワード再設定',
+    title: '新しいパスワードの設定',
+    robots: { index: false },
 }
 
 export default async function ResetPassword() {

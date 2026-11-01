@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: 'ログイン',
+    description:
+        'しゃべる台本にログインして、台本の作成・編集やプロンプター表示をご利用いただけます。',
 }
 
 export default async function Login({
