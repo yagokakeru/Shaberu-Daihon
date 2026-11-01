@@ -15,6 +15,7 @@ import { editScriptName } from '@/lib/actions/script/editScript'
 import ToastMessage from '@/components/ui/message/toast'
 import type { saveState } from '@/types/saveState'
 import { editScriptFormValues } from '@/lib/validation/schema'
+import { LEGAL } from '@/lib/consts/legal'
 
 export function EditComponent({ script }: { script: getEditScript }) {
     const { form, onSubmit } = useEditScriptForm(script.data)
@@ -39,6 +40,7 @@ export function EditComponent({ script }: { script: getEditScript }) {
             setToastMessage(result)
             if (result.messageType === 'success') {
                 setSaveState('saved')
+                document.title = `${name || '台本'}｜${LEGAL.SERVICE_NAME}`
             } else {
                 setSaveState('unsaved')
             }
