@@ -16,6 +16,15 @@ export const metadata: Metadata = {
     },
     description:
         'カメラ目線のまま台本を読めるWebプロンプター。台本を作成して、自動スクロール・速度調整・鏡文字表示で動画撮影や配信をサポートします。ブラウザですぐ使えて、無料で始められます。',
+    // title/descriptionは各ページの値を引き継ぐので、ここでは指定しない
+    openGraph: {
+        type: 'website',
+        siteName: LEGAL.SERVICE_NAME,
+        locale: 'ja_JP',
+    },
+    twitter: {
+        card: 'summary_large_image',
+    },
 }
 
 const geistSans = Geist({
