@@ -8,6 +8,7 @@ import { LEGAL, LEGAL_PATHS } from '@/lib/consts/legal'
 
 export const metadata = {
     title: `利用規約`,
+    description: 'しゃべる台本の利用規約です。',
 }
 
 export default function TermsPage() {

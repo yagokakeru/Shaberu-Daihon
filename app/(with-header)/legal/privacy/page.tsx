@@ -7,6 +7,7 @@ import { LEGAL } from '@/lib/consts/legal'
 
 export const metadata = {
     title: `プライバシーポリシー`,
+    description: 'しゃべる台本のプライバシーポリシーです。',
 }
 
 export default function PrivacyPage() {
