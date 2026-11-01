@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params
     const script = await getCachedEditScript(id)
 
-    return { title: script.data?.title || '台本' }
+    return { title: script.data?.title || '台本', robots: { index: false } }
 }
 
 export default async function PrompterPage(props: {

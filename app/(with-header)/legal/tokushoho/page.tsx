@@ -5,6 +5,7 @@ import { LEGAL, LEGAL_PATHS } from '@/lib/consts/legal'
 
 export const metadata = {
     title: `特定商取引法に基づく表記`,
+    description: 'しゃべる台本の特定商取引法に基づく表記です。',
 }
 
 export default async function TokushohoPage() {

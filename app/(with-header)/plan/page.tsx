@@ -6,6 +6,8 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
     title: '料金プラン',
+    description:
+        'しゃべる台本の料金プランをご案内します。無料のフリープランから、台本を作成できる数に応じて選べます。',
 }
 
 export default async function Pricing() {
