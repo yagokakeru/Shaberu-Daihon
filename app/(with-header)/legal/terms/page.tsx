@@ -7,7 +7,7 @@ import {
 import { LEGAL, LEGAL_PATHS } from '@/lib/consts/legal'
 
 export const metadata = {
-    title: `利用規約 | ${LEGAL.SERVICE_NAME}`,
+    title: `利用規約`,
 }
 
 export default function TermsPage() {
