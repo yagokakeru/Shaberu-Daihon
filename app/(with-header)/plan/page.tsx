@@ -2,6 +2,11 @@ import { PlanComponent } from '@/components/app/plan'
 import { getPlan } from '@/lib/functions/plan/getPlan'
 import { getUserInfo } from '@/lib/functions/profile/getUserInfo'
 import { getUserPlan } from '@/lib/functions/profile/getUserPlan'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: '料金プラン',
+}
 
 export default async function Pricing() {
     const planInfo = await getPlan()

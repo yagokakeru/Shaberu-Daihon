@@ -4,7 +4,7 @@ import { getPlan } from '@/lib/functions/plan/getPlan'
 import { LEGAL, LEGAL_PATHS } from '@/lib/consts/legal'
 
 export const metadata = {
-    title: `特定商取引法に基づく表記 | ${LEGAL.SERVICE_NAME}`,
+    title: `特定商取引法に基づく表記`,
 }
 
 export default async function TokushohoPage() {

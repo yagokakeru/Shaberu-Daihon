@@ -6,7 +6,7 @@ import {
 import { LEGAL } from '@/lib/consts/legal'
 
 export const metadata = {
-    title: `プライバシーポリシー | ${LEGAL.SERVICE_NAME}`,
+    title: `プライバシーポリシー`,
 }
 
 export default function PrivacyPage() {

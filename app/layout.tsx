@@ -3,15 +3,21 @@ import { ThemeProvider } from 'next-themes'
 import './globals.css'
 import { AuthProvider } from '@/lib/providers/AuthProvider'
 import { getUserInfo } from '@/lib/functions/profile/getUserInfo'
+import { LEGAL } from '@/lib/consts/legal'
+import type { Metadata } from 'next'
 
 const defaultUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000'
 
-export const metadata = {
+export const metadata: Metadata = {
     metadataBase: new URL(defaultUrl),
-    title: 'Next.js and Supabase Starter Kit',
-    description: 'The fastest way to build apps with Next.js and Supabase',
+    title: {
+        default: `${LEGAL.SERVICE_NAME}｜カメラ目線で話せるWebプロンプター`,
+        template: `%s｜${LEGAL.SERVICE_NAME}`,
+    },
+    description:
+        'カメラ目線のまま台本を読めるWebプロンプター。台本を作成して、自動スクロール・速度調整・鏡文字表示で動画撮影や配信をサポートします。ブラウザですぐ使えて、無料で始められます。',
 }
 
 const geistSans = Geist({
