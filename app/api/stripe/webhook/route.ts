@@ -38,35 +38,21 @@ export async function POST(req: NextRequest) {
             return new Response('Webhook Error', { status: 400 })
         }
 
+        console.log('[stripe-webhook]', event.type, event.id)
+
         // イベント処理
         // イベントの種類と役割：https://docs.stripe.com/api/events/types
         switch (event.type) {
-            case 'checkout.session.completed':
-                console.log(event.type, '決済完了🎉🎉🎉🎉🎉🎉🎉🎉')
-                break
             case 'customer.subscription.created':
-                console.log(event.type, 'サブスク契約🤑🤑🤑🤑🤑🤑🤑🤑')
                 await Subscription(event)
                 break
             case 'customer.subscription.updated':
-                console.log(event.type, 'サブスクプラン変更🙇‍♂️🙇‍♂️🙇‍♂️🙇‍♂️🙇‍♂️🙇‍♂️🙇‍♂️🙇‍♂️')
                 await UpgradeSubscriptionWithWebhook(event)
                 break
             case 'customer.subscription.deleted':
-                console.log(event.type, 'サブスク解約😞😞😞😞😞😞😞😞')
                 await UnsubscriptionWebhook(event.data.object.id)
                 break
-            case 'invoice.payment_succeeded':
-                console.log(event.type, '支払い成功💰💰💰💰💰💰💰💰')
-                break
-            case 'invoice.payment_failed':
-                console.log(event.type, '支払い失敗😤😤😤😤😤😤😤😤')
-                break
             default:
-            // console.log(
-            //     `🚨🚨🚨🚨🚨🚨\n${event.type}\n処理対象外のイベントだ\n🚨🚨🚨🚨🚨🚨\nこれだよ`
-            // )
-            // console.log(event)
         }
     } catch (error) {
         console.error('Error handling webhook event:', error)
