@@ -4,9 +4,12 @@ import './globals.css'
 import { AuthProvider } from '@/lib/providers/AuthProvider'
 import { getUserInfo } from '@/lib/functions/profile/getUserInfo'
 import { LEGAL } from '@/lib/consts/legal'
+import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 
 const defaultUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+const gtmId =
+    process.env.APP_ENV === 'production' ? process.env.GTM_ID : undefined
 
 export const metadata: Metadata = {
     metadataBase: new URL(defaultUrl),
@@ -45,6 +48,7 @@ export default async function RootLayout({
             className={geistSans.className}
             suppressHydrationWarning
         >
+            {gtmId && <GoogleTagManager gtmId={gtmId} />}
             <body>
                 <AuthProvider userProfile={userProfile}>
                     <ThemeProvider
