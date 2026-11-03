@@ -6,10 +6,12 @@ import type { ReactNode } from 'react'
 export function LegalPage({
     title,
     enactedAt,
+    revisedAt,
     children,
 }: {
     title: string
     enactedAt: string
+    revisedAt?: string
     children: ReactNode
 }) {
     return (
@@ -23,6 +25,12 @@ export function LegalPage({
                 </div>
                 <p className="text-body-small-pc text-text-secondary text-right mt-48-pc max-md:text-body-small-sp max-md:mt-32-sp">
                     制定日：{enactedAt}
+                    {revisedAt && (
+                        <>
+                            <br />
+                            最終改定日：{revisedAt}
+                        </>
+                    )}
                 </p>
             </div>
         </section>

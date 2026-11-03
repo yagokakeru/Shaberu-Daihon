@@ -103,6 +103,8 @@ cp .env.example .env.local
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 APP_ENV=development
 
+GTM_ID=
+
 NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321   # supabase start の API URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY=                    # supabase start の anon key
 SUPABASE_SERVICE_ROLE_KEY=                        # supabase start の service_role key
