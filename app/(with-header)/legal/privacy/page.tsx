@@ -12,7 +12,11 @@ export const metadata = {
 
 export default function PrivacyPage() {
     return (
-        <LegalPage title="プライバシーポリシー" enactedAt={LEGAL.ENACTED_AT}>
+        <LegalPage
+            title="プライバシーポリシー"
+            enactedAt={LEGAL.ENACTED_AT}
+            revisedAt={LEGAL.PRIVACY_REVISED_AT}
+        >
             <p className="text-body-default-pc max-md:text-body-default-sp">
                 {LEGAL.SERVICE_NAME}
                 の運営者（以下「運営者」といいます）は、サービス「
@@ -31,6 +35,7 @@ export default function PrivacyPage() {
                         'ユーザーが作成したコンテンツ：台本のタイトル・本文、お気に入りの設定',
                         '契約・決済に関する情報：ご利用中のプラン、契約状況、決済代行サービス上の顧客ID',
                         'アクセス情報：IPアドレス、ブラウザの種類、アクセス日時などの通信記録、およびログイン状態を保持するためのCookie',
+                        '利用状況に関する情報：閲覧したページ、参照元、ご利用の端末・ブラウザの種類、おおよその地域など、アクセス解析ツール（Google アナリティクス）がCookieを通じて取得する情報',
                     ]}
                 />
                 <p>
@@ -47,6 +52,7 @@ export default function PrivacyPage() {
                         'パスワード再設定など、本サービスの利用に必要なご連絡のため',
                         'お問い合わせへの対応のため',
                         '利用規約に違反する行為や不正利用への対応のため',
+                        '本サービスの利用状況の分析のため',
                         '本サービスの改善、障害の調査・対応のため',
                     ]}
                 />
@@ -75,6 +81,7 @@ export default function PrivacyPage() {
                         'Supabase（Supabase, Inc.／米国）：アカウント情報、プロフィール情報、台本などのデータの保存および認証',
                         'Stripe（Stripe, Inc.／米国）：有料プランの決済、カード情報の管理',
                         'Vercel（Vercel Inc.／米国）：本サービスのホスティング、アクセス情報の処理',
+                        'Google（Google LLC／米国）：アクセス解析（Google アナリティクス）による利用状況の分析',
                     ]}
                 />
                 <p>
@@ -117,8 +124,39 @@ export default function PrivacyPage() {
             </LegalSection>
 
             <LegalSection title="8. Cookieについて">
+                <p>本サービスは、以下の目的でCookieを使用します。</p>
+                <LegalList
+                    items={[
+                        'ログイン状態の保持',
+                        'Google アナリティクスによる利用状況の分析',
+                    ]}
+                />
                 <p>
-                    本サービスは、ログイン状態を保持するためにCookieを使用します。ブラウザの設定によりCookieを無効にすることができますが、その場合、本サービスにログインできなくなります。
+                    Google
+                    アナリティクスは、Cookieを使用して、閲覧したページ、アクセス日時、ご利用の端末・ブラウザの種類などの情報をGoogle
+                    LLCに送信します。運営者は、氏名やメールアドレスなど個人を特定できる情報をGoogle
+                    アナリティクスに送信しません。Googleによるデータの取り扱いについては、
+                    <a
+                        href="https://policies.google.com/technologies/partner-sites?hl=ja"
+                        className="underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Googleのサービスを使用するサイトやアプリから収集した情報のGoogleによる使用
+                    </a>
+                    をご参照ください。
+                </p>
+                <p>
+                    Google アナリティクスによる情報の収集は、
+                    <a
+                        href="https://tools.google.com/dlpage/gaoptout?hl=ja"
+                        className="underline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Google アナリティクス オプトアウト アドオン
+                    </a>
+                    を利用することで無効にできます。また、ブラウザの設定によりCookieを無効にすることもできますが、その場合、本サービスにログインできなくなります。
                 </p>
             </LegalSection>
 
