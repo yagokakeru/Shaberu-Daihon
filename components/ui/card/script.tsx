@@ -72,7 +72,10 @@ export default function ScriptCard({
                     </h3>
                     <div className="flex items-center gap-8-pc max-md:gap-8-sp">
                         {scriptInfo.data.isLocked && (
-                            <Lock className="w-pcvw-[20] max-md:w-spvw-[20] h-auto" />
+                            <Lock
+                                className="w-pcvw-[20] max-md:w-spvw-[20] h-auto"
+                                aria-label="ロック中"
+                            />
                         )}
                         <svg
                             className="cursor-pointer block w-pcvw-[20] max-md:w-spvw-[20] h-auto"
