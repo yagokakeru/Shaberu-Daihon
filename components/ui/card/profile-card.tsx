@@ -63,34 +63,42 @@ const ProfileCard = React.forwardRef<HTMLDivElement, ProfileCardProps>(
                         </div>
                     )}
                 </div>
-                <div className="flex items-center flex-col gap-8-pc max-md:gap-8-sp">
-                    <div className="flex items-center gap-4-pc max-md:gap-4-sp">
-                        <div className="text-body-small-pc max-md:text-body-small-sp">
-                            現在のプラン：
+                {userPlan ? (
+                    <div className="flex items-center flex-col gap-8-pc max-md:gap-8-sp">
+                        <div className="flex items-center gap-4-pc max-md:gap-4-sp">
+                            <div className="text-body-small-pc max-md:text-body-small-sp">
+                                現在のプラン：
+                            </div>
+                            <PlanBadge
+                                variant={
+                                    userPlan.stripe_price_id
+                                        ? 'paid'
+                                        : 'default'
+                                }
+                            >
+                                {userPlan.name ?? 'フリー'}
+                            </PlanBadge>
                         </div>
-                        <PlanBadge
-                            variant={
-                                userPlan?.stripe_price_id ? 'paid' : 'default'
-                            }
-                        >
-                            {userPlan?.name ?? 'フリー'}
-                        </PlanBadge>
+                        <div className="text-body-notice-pc max-md:text-body-notice-sp">
+                            <span className="text-body-strong-pc max-md:text-body-strong-sp">
+                                {userPlan.script_count} /{' '}
+                                {userPlan.max_scripts
+                                    ? userPlan.max_scripts
+                                    : '無制限'}
+                            </span>{' '}
+                            作成済み
+                        </div>
+                        <Button size={'sm'} asChild>
+                            <Link href={'/plan'} onClick={onClose}>
+                                アップグレード
+                            </Link>
+                        </Button>
                     </div>
+                ) : (
                     <div className="text-body-notice-pc max-md:text-body-notice-sp">
-                        <span className="text-body-strong-pc max-md:text-body-strong-sp">
-                            {userPlan?.script_count} /{' '}
-                            {userPlan?.max_scripts
-                                ? userPlan?.max_scripts
-                                : '無制限'}
-                        </span>{' '}
-                        作成済み
+                        ユーザー情報を取得できませんでした。
                     </div>
-                    <Button size={'sm'} asChild>
-                        <Link href={'/plan'} onClick={onClose}>
-                            アップグレード
-                        </Link>
-                    </Button>
-                </div>
+                )}
                 <div className="flex items-center w-full justify-between w-pcvw-[230] max-md:w-auto max-md:justify-center max-md:gap-8-sp">
                     <Button
                         variant={'secondary'}

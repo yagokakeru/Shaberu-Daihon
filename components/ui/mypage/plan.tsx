@@ -56,32 +56,30 @@ export const MypagePlan = ({
             <div className="flex items-center gap-4-pc max-md:gap-4-sp text-body-default-pc max-md:text-body-default-sp mt-40-pc max-md:mt-40-sp">
                 <div>現在のプラン：</div>
                 <PlanBadge
-                    variant={userPlan?.stripe_price_id ? 'paid' : 'default'}
+                    variant={userPlan.stripe_price_id ? 'paid' : 'default'}
                 >
-                    {userPlan?.name}
+                    {userPlan.name}
                 </PlanBadge>
             </div>
-            {userPlan?.cancel_at_period_end ? (
+            {userPlan.cancel_at_period_end ? (
                 <>
                     <div className="flex items-center gap-4-pc max-md:gap-4-sp text-body-default-pc max-md:text-body-default-sp mt-16-pc max-md:mt-16-sp">
                         <div>解約予定日：</div>
-                        <div>{userPlan?.current_period_end}</div>
+                        <div>{userPlan.current_period_end}</div>
                     </div>
                 </>
             ) : (
                 <>
                     <div className="flex items-center gap-4-pc max-md:gap-4-sp text-body-default-pc max-md:text-body-default-sp mt-16-pc max-md:mt-16-sp">
                         <div>次回の支払い：</div>
-                        <div>
-                            {userPlan?.current_period_end ?? '支払いなし'}
-                        </div>
+                        <div>{userPlan.current_period_end ?? '支払いなし'}</div>
                     </div>
                 </>
             )}
             <div className="text-body-default-pc max-md:text-body-default-sp mt-16-pc max-md:mt-16-sp">
                 現在の台本数：
                 <span className="text-heading-h3-pc max-md:text-heading-h3-sp">
-                    {userPlan?.script_count} /{' '}
+                    {userPlan.script_count} /{' '}
                     {userPlan.max_scripts ? userPlan.max_scripts : '無制限'}
                 </span>{' '}
                 作成済み
