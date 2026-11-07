@@ -8,7 +8,7 @@ export const LEGAL = {
     // 制定日
     ENACTED_AT: '2026年10月15日',
     // プライバシーポリシーの最終改定日（内容を改定したら更新する）
-    PRIVACY_REVISED_AT: '2026年11月3日',
+    PRIVACY_REVISED_AT: '2026年11月7日',
 } as const
 
 export const LEGAL_PATHS = {
