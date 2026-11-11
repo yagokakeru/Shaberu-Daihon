@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest'
-import { signUpAction } from '@/app/actions'
+import { signUpAction } from '@/lib/actions/auth/signUp'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SignUpForm } from '@/components/app/auth-pages/sign-up'
 
-vi.mock('@/app/actions', () => ({
+vi.mock('@/lib/actions/auth/signUp', () => ({
     signUpAction: vi.fn(),
 }))
 

@@ -10,10 +10,10 @@ vi.mock('@/lib/actions/script/editScript', () => ({
 }))
 
 // useEditScriptForm は lib/validation/hooks.ts の一部で、
-// そのファイルは app/actions.ts(Stripeクライアントを初期化する
-// checkout.ts を間接的にimportしている)を丸ごと読み込むため、
+// そのファイルは signUp.ts(Stripeクライアントを初期化する
+// checkout.ts を間接的にimportしている)を読み込むため、
 // 実際には使わなくてもここでモックしておく必要がある
-vi.mock('@/app/actions', () => ({}))
+vi.mock('@/lib/actions/auth/signUp', () => ({}))
 
 const mockScriptData: scriptData = {
     id: 1,

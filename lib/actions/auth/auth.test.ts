@@ -1,12 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import {
-    forgotPasswordAction,
-    signInAction,
-    resetPasswordAction,
-    signOutAction,
-    signUpAction,
-    deleteAccountAction,
-} from '@/app/actions'
+import { forgotPasswordAction } from '@/lib/actions/auth/forgotPassword'
+import { signInAction } from '@/lib/actions/auth/signIn'
+import { resetPasswordAction } from '@/lib/actions/auth/resetPassword'
+import { signOutAction } from '@/lib/actions/auth/signOut'
+import { signUpAction } from '@/lib/actions/auth/signUp'
+import { deleteAccountAction } from '@/lib/actions/auth/deleteAccount'
 import { createClient } from '@/utils/supabase/server'
 import { createClient as createClientAdmin } from '@supabase/supabase-js'
 import { headers } from 'next/headers'
