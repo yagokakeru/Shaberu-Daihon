@@ -8,7 +8,7 @@ import ToastMessage from '@/components/ui/message/toast'
 import type { userPlan } from '@/types/userPlan'
 import { CircleUserRound, CreditCard, Settings, LogOut } from 'lucide-react'
 import { useState } from 'react'
-import { signOutAction } from '@/app/actions'
+import { signOutAction } from '@/lib/actions/auth/signOut'
 
 export function MypageComponent({ userPlan }: { userPlan: userPlan | null }) {
     type Tab = 'profile' | 'plan' | 'account'

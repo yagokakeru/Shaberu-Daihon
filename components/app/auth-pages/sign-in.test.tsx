@@ -1,13 +1,16 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest'
-import { signInAction } from '@/app/actions'
+import { signInAction } from '@/lib/actions/auth/signIn'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 import { LoginForm } from '@/components/app/auth-pages/sign-in'
 
-vi.mock('@/app/actions', () => ({
+vi.mock('@/lib/actions/auth/signIn', () => ({
     signInAction: vi.fn(),
 }))
+// lib/validation/hooks.ts が signUp.ts(Stripeクライアントを初期化する
+// checkout.ts を間接的にimportしている)を読み込むため、ここでモックしておく
+vi.mock('@/lib/actions/auth/signUp', () => ({}))
 
 describe('LoginForm', () => {
     it('不正なメールアドレスで送信するとエラーメッセージが表示され、signInActionは呼ばれない', async () => {

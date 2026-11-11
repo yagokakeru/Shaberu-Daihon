@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { SubmitButton } from '@/components/submit-button'
 import ConfirmDialog from '@/components/ui/comfirm/dialog'
-import { deleteAccountAction, signOutAction } from '@/app/actions'
+import { deleteAccountAction } from '@/lib/actions/auth/deleteAccount'
+import { signOutAction } from '@/lib/actions/auth/signOut'
 import type { Message } from '@/types/message'
 
 export const MypageAccount = ({

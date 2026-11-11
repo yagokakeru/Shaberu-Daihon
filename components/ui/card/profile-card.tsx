@@ -1,7 +1,7 @@
 import ProfilePhoto from '@/components/ui/profile-photo'
 import { Button } from '@/components/ui/button'
 import { SubmitButton } from '@/components/submit-button'
-import { signOutAction } from '@/app/actions'
+import { signOutAction } from '@/lib/actions/auth/signOut'
 import { PlanBadge } from '@/components/ui/plan-badge'
 import Link from 'next/link'
 import * as React from 'react'

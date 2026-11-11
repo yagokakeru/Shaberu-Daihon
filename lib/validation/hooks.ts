@@ -2,12 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import {
-    signUpAction,
-    signInAction,
-    forgotPasswordAction,
-    resetPasswordAction,
-} from '@/app/actions'
+import { signUpAction } from '@/lib/actions/auth/signUp'
+import { signInAction } from '@/lib/actions/auth/signIn'
+import { forgotPasswordAction } from '@/lib/actions/auth/forgotPassword'
+import { resetPasswordAction } from '@/lib/actions/auth/resetPassword'
 import {
     signupSchema,
     signupFormValues,

@@ -55,4 +55,27 @@ export const MESSAGES = {
     FORBIDDEN: 'アクセス権限がありません',
     VALIDATION_ERROR: '入力内容に誤りがあります',
     SERVER_ERROR: 'サーバーでエラーが発生しました',
+
+    // 認証・アカウント（lib/actions/auth の Server Actions）
+    SIGN_UP_INVALID_INPUT: '入力内容に誤りがあります。',
+    USER_ALREADY_EXISTS: 'ユーザーはすでに存在しています。',
+    SIGN_UP_FAILED:
+        'ユーザーの作成に失敗しました。しばらくしてからもう一度お試しください。',
+    USER_INFO_FETCH_FAILED:
+        'ユーザー情報を取得できませんでした。しばらくしてからもう一度お試しください。',
+    SIGN_IN_FAILED:
+        'ログインできませんでした。メールアドレスとパスワードを確認してください。',
+    SIGN_OUT_FAILED:
+        'ログアウトに失敗しました。しばらくしてからもう一度お試しください。',
+    INVALID_ACCESS:
+        '不正なアクセスです。しばらくしてからもう一度お試しください。',
+    EMAIL_REQUIRED: 'メールアドレスを入力してください。',
+    RESET_LINK_SEND_FAILED:
+        'パスワードのリセットリンクの送信に失敗しました。しばらくしてからもう一度お試しください。',
+    RESET_LINK_SENT:
+        'パスワードのリセットリンクを送信しました。メールをご確認ください。',
+    PASSWORD_UPDATE_FAILED: 'パスワードの更新に失敗しました。',
+    PASSWORD_UPDATE_SUCCEEDED: 'パスワードの更新に成功しました。',
+    DELETE_ACCOUNT_FAILED:
+        'ユーザー削除に失敗しました。しばらくしてからもう一度お試しください。',
 } as const
