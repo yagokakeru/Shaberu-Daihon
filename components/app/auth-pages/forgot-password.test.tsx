@@ -1,13 +1,16 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest'
-import { forgotPasswordAction } from '@/app/actions'
+import { forgotPasswordAction } from '@/lib/actions/auth/forgotPassword'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ForgotPasswordForm from '@/components/app/auth-pages/forgot-password'
 
-vi.mock('@/app/actions', () => ({
+vi.mock('@/lib/actions/auth/forgotPassword', () => ({
     forgotPasswordAction: vi.fn(),
 }))
+// lib/validation/hooks.ts が signUp.ts(Stripeクライアントを初期化する
+// checkout.ts を間接的にimportしている)を読み込むため、ここでモックしておく
+vi.mock('@/lib/actions/auth/signUp', () => ({}))
 
 describe('ForgotPasswordForm', () => {
     it('不正なメールアドレスで送信するとエラーメッセージが表示される', async () => {

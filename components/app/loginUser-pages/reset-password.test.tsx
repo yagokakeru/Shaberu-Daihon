@@ -1,13 +1,16 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi } from 'vitest'
-import { resetPasswordAction } from '@/app/actions'
+import { resetPasswordAction } from '@/lib/actions/auth/resetPassword'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 import ResetPasswordForm from '@/components/app/loginUser-pages/reset-password'
 
-vi.mock('@/app/actions', () => ({
+vi.mock('@/lib/actions/auth/resetPassword', () => ({
     resetPasswordAction: vi.fn(),
 }))
+// lib/validation/hooks.ts が signUp.ts(Stripeクライアントを初期化する
+// checkout.ts を間接的にimportしている)を読み込むため、ここでモックしておく
+vi.mock('@/lib/actions/auth/signUp', () => ({}))
 
 describe('ResetPasswordForm', () => {
     it('不正なパスワードで送信するとエラーメッセージが表示され、resetPasswordActionは呼ばれない', async () => {
