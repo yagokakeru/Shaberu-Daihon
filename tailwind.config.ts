@@ -6,7 +6,6 @@ import { pcVw, spVw, vwPlugin } from './lib/tailwind/vw'
 const pxVar = (name: string) => `calc(var(${name}) * 1px)`
 
 const config = {
-    darkMode: ['class'],
     content: [
         './pages/**/*.{ts,tsx}',
         './components/**/*.{ts,tsx}',
