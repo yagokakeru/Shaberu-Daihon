@@ -1,5 +1,4 @@
 import { Geist } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
 import './globals.css'
 import { AuthProvider } from '@/lib/providers/AuthProvider'
 import { getUserInfo } from '@/lib/functions/profile/getUserInfo'
@@ -43,22 +42,11 @@ export default async function RootLayout({
     const userProfile = await getUserInfo()
 
     return (
-        <html
-            lang="ja"
-            className={geistSans.className}
-            suppressHydrationWarning
-        >
+        <html lang="ja" className={geistSans.className}>
             {gtmId && <GoogleTagManager gtmId={gtmId} />}
             <body>
                 <AuthProvider userProfile={userProfile}>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        enableSystem
-                        disableTransitionOnChange
-                    >
-                        {children}
-                    </ThemeProvider>
+                    {children}
                 </AuthProvider>
             </body>
         </html>

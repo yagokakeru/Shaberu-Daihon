@@ -1,6 +1,5 @@
 'use client'
 
-import { ThemeSwitcher } from '@/components/theme-switcher'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from './ui/button'
@@ -134,7 +133,6 @@ export default function Header({ userPlan }: { userPlan: userPlan | null }) {
                             </Button>
                         </div>
                     )}
-                    <ThemeSwitcher />
                 </div>
             </nav>
 
