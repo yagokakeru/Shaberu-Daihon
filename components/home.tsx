@@ -27,7 +27,7 @@ export default function Home({ planInfo }: { planInfo: Result<planInfo[]> }) {
                 <Image
                     className="block rounded-xl-pc mx-auto mt-32-pc w-pcvw-[1000] max-md:w-full max-md:h-auto max-md:mt-24-sp max-md:rounded-xl-sp"
                     src="/home/main_img.jpg"
-                    alt="メイン画像"
+                    alt="しゃべる台本の台本一覧画面"
                     width={1000}
                     height={563}
                 />
@@ -43,24 +43,28 @@ export default function Home({ planInfo }: { planInfo: Result<planInfo[]> }) {
                             title="📹 カメラ目線をキープ"
                             description="視線を外さず自然に話せる"
                             image="/home/feature_img01.jpg"
+                            alt="ノートパソコンに表示した台本を見ながら、カメラに向かって話している様子"
                             className="w-pcvw-[618] max-md:w-full"
                         />
                         <FeatureCard
                             title="⚡ 自動スクロール"
                             description="話すスピードに合わせて自然にスクロール"
                             image="/home/feature_img02.jpg"
+                            alt="プロンプター画面で台本が自動スクロールしている様子と、スクロール速度・開始タイマーの設定"
                             className="w-pcvw-[618] max-md:w-full"
                         />
                         <FeatureCard
                             title="🪞 鏡文字対応"
                             description="そのまま読める鏡文字表示"
                             image="/home/feature_img03.jpg"
+                            alt="プロンプター画面と、上下反転・左右反転の表示切り替え"
                             className="w-pcvw-[618] max-md:w-full"
                         />
                         <FeatureCard
                             title="📜 台本を簡単作成"
                             description="思いついたらすぐ作れるシンプルな台本エディタ"
                             image="/home/feature_img04.jpg"
+                            alt="台本エディタで文字を太字・イタリック体・色で装飾している画面"
                             className="w-pcvw-[618] max-md:w-full"
                         />
                     </div>
