@@ -20,13 +20,18 @@ export const getAllScript = async (): Promise<script> => {
     // ユーザーの台本を取得する
     const { data: script, error } = await supabase
         .from('script')
-        .select('*')
+        .select('*, script_favorites(id)')
         .eq('user_id', userID)
 
     if (error) {
         console.error(error)
         return { success: false, error: '台本の取得に失敗しました。' }
     }
+
+    const scripts = script.map(({ script_favorites, ...s }) => ({
+        ...s,
+        isFavorite: script_favorites?.length > 0,
+    }))
 
     let activeScriptIds: Set<number> | null = null
 
@@ -37,11 +42,11 @@ export const getAllScript = async (): Promise<script> => {
         activeScriptIds = null
     }
 
-    script.forEach((s) => {
+    scripts.forEach((s) => {
         s.isLocked = activeScriptIds ? !activeScriptIds.has(s.id) : false
     })
 
-    return { success: true, data: script }
+    return { success: true, data: scripts }
 }
 
 /**
