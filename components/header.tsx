@@ -19,6 +19,7 @@ import { cn } from '@/lib/utils'
 export default function Header({ userPlan }: { userPlan: userPlan | null }) {
     const router = useRouter()
     const userProfile = useAtomValue(userProfileAtom)
+    const userId = userProfile?.user_id
     const [isProfileCardOpen, setIsProfileCardOpen] = useState(false)
     const [toastMessage, setToastMessage] = useState<Message | null>(null)
     const profileMenuRef = useRef<HTMLDivElement>(null)
@@ -41,7 +42,7 @@ export default function Header({ userPlan }: { userPlan: userPlan | null }) {
 
     // プラン変更を監視してヘッダーを更新するためのリアルタイムチャンネルを作成
     useEffect(() => {
-        if (!userProfile) return
+        if (!userId) return
         const supabase = createClient()
         let channel: ReturnType<typeof supabase.channel> | undefined
         let cancelled = false
@@ -63,7 +64,7 @@ export default function Header({ userPlan }: { userPlan: userPlan | null }) {
                         event: 'UPDATE',
                         schema: 'public',
                         table: 'subscription',
-                        filter: `user_id=eq.${userProfile.user_id}`,
+                        filter: `user_id=eq.${userId}`,
                     },
                     () => router.refresh() // プランが変わったらヘッダーを含めて取得し直す
                 )
@@ -73,9 +74,10 @@ export default function Header({ userPlan }: { userPlan: userPlan | null }) {
 
         return () => {
             cancelled = true
-            if (channel) supabase.removeChannel(channel)
+            // removeChannel は購読が0件になると接続ごと切り、直後の再購読が止まるため unsubscribe を使う
+            if (channel) channel.unsubscribe()
         }
-    }, [userProfile, router])
+    }, [userId, router])
 
     return (
         <header
