@@ -14,7 +14,12 @@ export const getUserPlan = cache(
         const {
             data: { user },
         } = await supabase.auth.getUser()
-        const userID = user ? user.id : ''
+
+        if (!user) {
+            return null
+        }
+
+        const userID = user.id
 
         // 2. 契約中のサブスク情報を取得
         const { data: subData, error: subError } = await supabase
@@ -56,6 +61,6 @@ export const getUserPlan = cache(
             script_count: scriptCount ?? 0,
         })
 
-        return result || null
+        return result
     }
 )
