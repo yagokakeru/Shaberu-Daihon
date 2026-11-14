@@ -5,6 +5,7 @@ type FeatureCardProps = {
     title: string
     description: string
     image: string
+    alt: string
     className?: string
 }
 
@@ -12,6 +13,7 @@ export default function FeatureCard({
     title,
     description,
     image,
+    alt,
     className,
 }: FeatureCardProps) {
     return (
@@ -29,7 +31,7 @@ export default function FeatureCard({
             </p>
             <Image
                 src={image}
-                alt="機能画像"
+                alt={alt}
                 width={554}
                 height={311}
                 className="block mt-16-pc rounded-lg-pc max-md:w-full max-md:h-auto max-md:mt-16-sp max-md:rounded-lg-sp"
