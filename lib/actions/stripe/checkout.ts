@@ -75,6 +75,7 @@ export const checkout = async (newPriceID: string): Promise<Message> => {
             consent_collection: {
                 terms_of_service: 'required',
             },
+            allow_promotion_codes: true,
         })
     } catch (error) {
         console.error('Checkout error:', error)
