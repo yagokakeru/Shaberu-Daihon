@@ -1,6 +1,5 @@
 'use server'
 
-// import { encodedRedirect } from '@/utils/utils'
 import { createClient } from '@/utils/supabase/server'
 import type { userProfile } from '@/types/userProfile'
 
@@ -22,18 +21,7 @@ export const insertFavorite = async (
 
     if (error) {
         console.error(error)
-        // return encodedRedirect(
-        //     'error',
-        //     '/protected/post',
-        //     `投稿に失敗しました。`
-        // )
     }
-
-    // return encodedRedirect(
-    //     'success',
-    //     '/protected/script/post',
-    //     '投稿しました。'
-    // )
 }
 
 /**
@@ -55,38 +43,5 @@ export const deleteFavorite = async (
 
     if (error) {
         console.error(error)
-        // return encodedRedirect(
-        //     'error',
-        //     '/protected/post',
-        //     `投稿に失敗しました。`
-        // )
     }
-
-    // return encodedRedirect(
-    //     'success',
-    //     '/protected/script/post',
-    //     '投稿しました。'
-    // )
-}
-
-/**
- * お気に入り判定
- * @param scriptId
- * @returns boolean
- */
-export async function isFavorited(scriptId: number) {
-    const supabase = await createClient()
-
-    const { data, error } = await supabase
-        .from('script_favorites')
-        .select('id')
-        .eq('script_id', scriptId)
-        .maybeSingle()
-
-    if (error) {
-        console.error(error)
-        return false
-    }
-
-    return !!data
 }

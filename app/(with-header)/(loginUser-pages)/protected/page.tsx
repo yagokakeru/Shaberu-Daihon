@@ -9,8 +9,11 @@ export const metadata: Metadata = {
 }
 
 export default async function ProtectedPage() {
-    const script = await getAllScript()
-    const userPlan = await getUserPlan()
+    const [script, userPlan] = await Promise.all([
+        getAllScript(),
+        getUserPlan(),
+    ])
+
     const isLimitReached =
         userPlan?.max_scripts != null &&
         userPlan.script_count >= userPlan.max_scripts

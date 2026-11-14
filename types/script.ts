@@ -8,10 +8,9 @@ export type scriptData = {
     plain_content: string
     inserted_at: string
     updated_at: string
+    isFavorite?: boolean
     isLocked?: boolean
 }
-
-export type scriptFavorite = boolean
 
 export type script = {
     success: boolean
@@ -23,9 +22,4 @@ export type getEditScript = {
     success: boolean
     data?: scriptData
     error?: string
-}
-
-export type scriptFavoriteInfo = {
-    data: scriptData
-    isFavorite: scriptFavorite
 }

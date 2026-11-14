@@ -1,7 +1,6 @@
-import type { scriptData, scriptFavoriteInfo } from '@/types/script'
+import type { scriptData } from '@/types/script'
 import { userProfileAtom } from '@/lib/atoms/authUser'
-import { scriptFavoriteAtom } from '@/lib/atoms/scriptFavorite'
-import { useSetAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { deleteFavorite, insertFavorite } from '@/lib/actions/script/favorite'
 import { deleteScript } from '@/lib/actions/script/deleteScript'
 import { useEditScriptForm } from '@/lib/validation/hooks'
@@ -23,34 +22,33 @@ export default function ScriptCard({
     className,
     setToastMessage,
 }: {
-    scriptInfo: scriptFavoriteInfo
+    scriptInfo: scriptData
     className?: string
     setToastMessage: (message: Message) => void
 }) {
     const userProfile = useAtomValue(userProfileAtom)
-    const setScriptFavorite = useSetAtom(scriptFavoriteAtom)
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
-    const { form, onSubmit } = useEditScriptForm(scriptInfo.data as scriptData)
+    const { form, onSubmit } = useEditScriptForm(scriptInfo)
     const name = form.watch('name')
     const router = useRouter()
 
     const handleDelete = async () => {
-        await deleteScript(scriptInfo.data.id)
+        await deleteScript(scriptInfo.id)
         router.refresh()
     }
 
     useEffect(() => {
-        if (name === scriptInfo.data.title) return
+        if (name === scriptInfo.title) return
 
         const timeout = setTimeout(async () => {
-            const result = await editScriptName(name, scriptInfo.data.id)
+            const result = await editScriptName(name, scriptInfo.id)
 
             if (result.messageType === 'success') {
                 setToastMessage(result)
             }
         }, 2000)
         return () => clearTimeout(timeout)
-    }, [name, scriptInfo.data.id, scriptInfo.data.title, setToastMessage])
+    }, [name, scriptInfo.id, scriptInfo.title, setToastMessage])
 
     if (!userProfile) return null
 
@@ -61,17 +59,15 @@ export default function ScriptCard({
                 className
             )}
         >
-            <div className={`${scriptInfo.data.isLocked && 'opacity-50'}`}>
+            <div className={`${scriptInfo.isLocked && 'opacity-50'}`}>
                 <div className="flex items-center justify-between">
                     <h3 className="aspect-square bg-background-primary flex items-center justify-center text-text-onPrimary text-heading-h3-pc max-md:text-heading-h3-sp rounded-md-pc max-md:rounded-md-sp w-pcvw-[32] max-md:w-spvw-[32]">
-                        {scriptInfo.data.plain_content
-                            ? scriptInfo.data.plain_content
-                                  .slice(0, 1)
-                                  .toUpperCase()
+                        {scriptInfo.plain_content
+                            ? scriptInfo.plain_content.slice(0, 1).toUpperCase()
                             : '台'}
                     </h3>
                     <div className="flex items-center gap-8-pc max-md:gap-8-sp">
-                        {scriptInfo.data.isLocked && (
+                        {scriptInfo.isLocked && (
                             <Lock
                                 className="w-pcvw-[20] max-md:w-spvw-[20] h-auto"
                                 aria-label="ロック中"
@@ -81,30 +77,20 @@ export default function ScriptCard({
                             className="cursor-pointer block w-pcvw-[20] max-md:w-spvw-[20] h-auto"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 19"
-                            onClick={() => {
+                            onClick={async () => {
                                 if (scriptInfo.isFavorite) {
-                                    deleteFavorite(
-                                        scriptInfo.data.id,
+                                    await deleteFavorite(
+                                        scriptInfo.id,
                                         userProfile.user_id
                                     )
                                 } else {
-                                    insertFavorite(
-                                        scriptInfo.data.id,
+                                    await insertFavorite(
+                                        scriptInfo.id,
                                         userProfile.user_id
                                     )
                                 }
 
-                                // お気に入りステータス更新
-                                setScriptFavorite((current) =>
-                                    current.map((item: scriptFavoriteInfo) =>
-                                        item.data.id === scriptInfo.data.id
-                                            ? {
-                                                  ...item,
-                                                  isFavorite: !item.isFavorite,
-                                              }
-                                            : item
-                                    )
-                                )
+                                router.refresh()
                             }}
                         >
                             <path
@@ -133,18 +119,18 @@ export default function ScriptCard({
                     <Input
                         className="border-none"
                         {...form.register('name')}
-                        disabled={scriptInfo.data.isLocked}
+                        disabled={scriptInfo.isLocked}
                     />
                 </form>
                 <p className="text-body-small-pc max-md:text-body-small-sp text-text-secondary mt-8-pc max-md:mt-8-sp">
-                    最終更新日：{dateFormat(scriptInfo.data.updated_at)}
+                    最終更新日：{dateFormat(scriptInfo.updated_at)}
                 </p>
                 <p className="text-body-notice-pc max-md:text-body-notice-sp text-text-secondary mt-16-pc max-md:mt-16-sp line-clamp-3">
-                    {scriptInfo.data.plain_content}
+                    {scriptInfo.plain_content}
                 </p>
             </div>
             <div className="flex flex-wrap justify-between gap-y-12-pc max-md:gap-y-12-sp mt-40-pc max-md:mt-40-sp">
-                {scriptInfo.data.isLocked ? (
+                {scriptInfo.isLocked ? (
                     <>
                         <Button
                             size="default"
@@ -174,7 +160,7 @@ export default function ScriptCard({
                             className="w-[48%]"
                         >
                             <Link
-                                href={`/protected/script/edit/${scriptInfo.data.id}`}
+                                href={`/protected/script/edit/${scriptInfo.id}`}
                             >
                                 編集
                             </Link>
@@ -196,7 +182,7 @@ export default function ScriptCard({
                             asChild
                         >
                             <Link
-                                href={`/protected/script/prompter/${scriptInfo.data.id}`}
+                                href={`/protected/script/prompter/${scriptInfo.id}`}
                             >
                                 プロンプターで表示
                             </Link>
@@ -209,7 +195,7 @@ export default function ScriptCard({
                 onOpenChange={setConfirmDialogOpen}
                 onConfirm={handleDelete}
                 title={`台本を削除しますか？`}
-                description={`${scriptInfo.data.title} を削除しますか？\nこの操作は元に戻せません`}
+                description={`${scriptInfo.title} を削除しますか？\nこの操作は元に戻せません`}
             />
         </div>
     )
