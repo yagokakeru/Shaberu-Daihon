@@ -1,14 +1,12 @@
 'use client'
 
-import { useAtom, useAtomValue } from 'jotai'
-import { isFavorited } from '@/lib/actions/script/favorite'
+import { useAtomValue } from 'jotai'
 import { createScript } from '@/lib/actions/script/createScript'
 import type { Message } from '@/types/message'
 import { Button } from '@/components/ui/button'
 import ToastMessage from '@/components/ui/message/toast'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { userProfileAtom } from '@/lib/atoms/authUser'
-import { scriptFavoriteAtom } from '@/lib/atoms/scriptFavorite'
 import ScriptCard from '@/components/ui/card/script'
 import SortButton from '@/components/ui/sort_buttom'
 import { Plus } from 'lucide-react'
@@ -25,44 +23,26 @@ export function Protected({
     isLimitReached: boolean
 }) {
     const userProfile = useAtomValue(userProfileAtom)
-    const [scriptFavorite, setScriptFavorite] = useAtom(scriptFavoriteAtom)
     const [toastMessage, setToastMessage] = useState<Message | null>(null)
     const [sortCategory, setSortCategory] = useState<SortCategory>('作成日')
     const [sortOrder, setSortOrder] = useState<SortOrder>('降順')
-    const sortedScripts = [...(scriptFavorite ?? [])].sort((a, b) => {
+    const sortedScripts = [...(script.data ?? [])].sort((a, b) => {
         if (sortCategory === 'お気に入りを優先') {
             return Number(b.isFavorite) - Number(a.isFavorite)
         }
 
         const aDate =
             sortCategory === '作成日'
-                ? new Date(a.data.inserted_at).getTime()
-                : new Date(a.data.updated_at).getTime()
+                ? new Date(a.inserted_at).getTime()
+                : new Date(a.updated_at).getTime()
 
         const bDate =
             sortCategory === '作成日'
-                ? new Date(b.data.inserted_at).getTime()
-                : new Date(b.data.updated_at).getTime()
+                ? new Date(b.inserted_at).getTime()
+                : new Date(b.updated_at).getTime()
 
         return sortOrder === '昇順' ? aDate - bDate : bDate - aDate
     })
-
-    useEffect(() => {
-        if (!script.data) return
-
-        const fetchFavorites = async () => {
-            const results = await Promise.all(
-                script.data!.map(async (s) => {
-                    const isFav = await isFavorited(s.id)
-                    return { data: s, isFavorite: isFav }
-                })
-            )
-
-            setScriptFavorite(results)
-        }
-
-        fetchFavorites()
-    }, [script.data, setScriptFavorite])
 
     if (!script.success) {
         return <p className="text-center">{script.error}</p>
@@ -127,7 +107,7 @@ export function Protected({
                         sortedScripts.map((item) => {
                             return (
                                 <ScriptCard
-                                    key={item.data['id']}
+                                    key={item['id']}
                                     scriptInfo={item}
                                     className="w-pcvw-[302] max-md:w-full"
                                     setToastMessage={setToastMessage}
