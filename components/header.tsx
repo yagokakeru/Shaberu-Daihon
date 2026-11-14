@@ -9,12 +9,15 @@ import ProfilePhoto from '@/components/ui/profile-photo'
 import { ProfileCard } from '@/components/ui/card/profile-card'
 import { useEffect, useRef, useState } from 'react'
 import ToastMessage from '@/components/ui/message/toast'
+import { createClient } from '@/utils/supabase/client'
+import { useRouter } from 'next/navigation'
 
 import type { userPlan } from '@/types/userPlan'
 import { Message } from '@/types/message'
 import { cn } from '@/lib/utils'
 
 export default function Header({ userPlan }: { userPlan: userPlan | null }) {
+    const router = useRouter()
     const userProfile = useAtomValue(userProfileAtom)
     const [isProfileCardOpen, setIsProfileCardOpen] = useState(false)
     const [toastMessage, setToastMessage] = useState<Message | null>(null)
@@ -35,6 +38,44 @@ export default function Header({ userPlan }: { userPlan: userPlan | null }) {
             document.removeEventListener('pointerdown', handlePointerDown)
         }
     }, [isProfileCardOpen])
+
+    // プラン変更を監視してヘッダーを更新するためのリアルタイムチャンネルを作成
+    useEffect(() => {
+        if (!userProfile) return
+        const supabase = createClient()
+        let channel: ReturnType<typeof supabase.channel> | undefined
+        let cancelled = false
+
+        const subscribe = async () => {
+            // Cookieから復元したセッションはRealtimeに自動で渡らないため、明示的に渡す
+            // (渡さないと未ログイン扱いになり、RLSで通知が届かない)
+            const {
+                data: { session },
+            } = await supabase.auth.getSession()
+            await supabase.realtime.setAuth(session?.access_token ?? null)
+            if (cancelled) return
+
+            channel = supabase
+                .channel('subscription-changes')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'UPDATE',
+                        schema: 'public',
+                        table: 'subscription',
+                        filter: `user_id=eq.${userProfile.user_id}`,
+                    },
+                    () => router.refresh() // プランが変わったらヘッダーを含めて取得し直す
+                )
+                .subscribe()
+        }
+        subscribe()
+
+        return () => {
+            cancelled = true
+            if (channel) supabase.removeChannel(channel)
+        }
+    }, [userProfile, router])
 
     return (
         <header
